@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/users', require('./routes/user'));
+app.use('/api/notes', require('./routes/note'));
 
 app.get('/', (req, res) => {
     res.json({ message: 'techNotes' });
