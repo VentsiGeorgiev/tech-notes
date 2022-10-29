@@ -7,6 +7,7 @@ const userController = require('../controller/user');
 
 router.route('/')
     .get(userController.getAllUsers)
-    .post(userController.createUser);
+    .post(userController.createUser)
+    .put(userController.updateUser);
 
 module.exports = router;

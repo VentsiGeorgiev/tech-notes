@@ -55,8 +55,54 @@ const createUser = async (req, res) => {
         if (user) {
             res.status(201).json({ message: 'User successfully created' });
         } else {
-            throw new Error({ message: 'Could not create user' });
+            throw new Error('Could not create user');
         }
+
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// @desc Update user
+// @route PUT /users
+// @access Private
+const updateUser = async (req, res) => {
+    try {
+        const { id, username, roles, active, password } = req.body;
+
+        // Confirm data
+        if (!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
+            throw new Error('All fields except password are required');
+        }
+
+        // Check for user if exists
+        const user = await User.findById(id).exec();
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Check for username
+        const usernameExists = await User.findOne({ username });
+
+        if (usernameExists) {
+            throw new Error('User with this username already exists');
+        }
+
+        user.username = username;
+        user.roles = roles;
+        user.active = active;
+
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            user.password = hashedPassword;
+        }
+
+        const updatedUser = await user.save();
+
+        res.json({ message: `${updatedUser.username} successfully updated` });
 
 
     } catch (error) {
@@ -66,5 +112,6 @@ const createUser = async (req, res) => {
 
 module.exports = {
     getAllUsers,
-    createUser
+    createUser,
+    updateUser,
 };
