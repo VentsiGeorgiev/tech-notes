@@ -91,6 +91,23 @@ const updateNote = async (req, res) => {
 // @route Delete /notes
 // @access Private
 const deleteNote = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        // Check if note exists
+        const note = await Note.findById(id).exec();
+
+        if (!note) {
+            throw new Error('Note not found');
+        }
+
+        const deletedNote = await note.deleteOne();
+
+        res.json({ message: `${deletedNote.title} successfully removed` });
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 
 };
 

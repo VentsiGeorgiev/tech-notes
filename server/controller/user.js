@@ -117,11 +117,8 @@ const deleteUser = async (req, res) => {
     try {
         const { id } = req.body;
 
-        console.log(id);
-
         // Check if user exists
         const user = await User.findById(id).exec();
-        console.log(user);
 
         if (!user) {
             throw new Error('User not found');
