@@ -5,6 +5,9 @@ const authController = require('../controller/auth');
 router.route('/login')
     .post(authController.login);
 
+router.route('/refresh')
+    .get(authController.refresh);
+
 router.route('/logout')
     .post(authController.logout);
 

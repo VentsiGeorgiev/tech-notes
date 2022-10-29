@@ -58,6 +58,52 @@ const login = async (req, res) => {
 
 };
 
+// @desc Refresh
+// @route GET /auth/refresh
+// @access Public - because access token has expired
+const refresh = (req, res) => {
+    try {
+        const cookies = req.cookies;
+
+        if (!cookies?.jwt) {
+            throw new Error('Unauthorized');
+        }
+        const refreshToken = cookies.jwt;
+
+        jwt.verify(
+            refreshToken,
+            process.env.REFRESH_TOKEN_SECRET,
+            async (err, decoded) => {
+                if (err) {
+                    return res.status(403).json({ message: 'Forbidden' });
+                }
+
+                const foundUser = await User.findOne({ username: decoded.username }).exec();
+
+                if (!foundUser) {
+                    throw new Error('Unauthorized');
+                }
+
+                const accessToken = jwt.sign(
+                    {
+                        'UserInfo': {
+                            'username': foundUser.username,
+                            'roles': foundUser.roles
+                        }
+                    },
+                    process.env.ACCESS_TOKEN_SECRET,
+                    { expiresIn: '60m' }
+                );
+
+                res.json({ accessToken });
+            }
+        );
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+
+};
+
 // @desc Logout
 // @route POST /auth/logout
 // @access Public - just to clear cookie if exists
@@ -74,7 +120,10 @@ const logout = (req, res) => {
     res.json({ message: 'Cookie cleared' });
 };
 
+
+
 module.exports = {
     login,
     logout,
+    refresh,
 };
