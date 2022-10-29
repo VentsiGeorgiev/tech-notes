@@ -2,11 +2,13 @@
 
 .header {
     background-color: $gray;
+    margin-bottom: 1.4rem;
 
     &__wrapper {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 8vh;
     }
 
     &__logo {

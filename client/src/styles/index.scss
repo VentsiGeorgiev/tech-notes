@@ -18,3 +18,61 @@ a {
     color: $black;
     text-decoration: none;
 }
+
+h1 {
+    font-size: clamp(1.2rem, 1.4rem, 2rem);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+// # Form styles
+.form {
+    width: 100%;
+
+    @media screen and (min-width: 860px) {
+        width: 50%;
+    }
+
+    &__title {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        margin-bottom: 1rem;
+
+        &__label {
+            display: block;
+        }
+
+        &__field {
+            width: 100%;
+            outline: none;
+            border-radius: 8px;
+            border: 1px solid $black;
+            font-size: 1.2rem;
+            padding: 0.3rem 0.7rem;
+        }
+    }
+}
+
+// # Button
+.btn {
+    cursor: pointer;
+    border: transparent;
+    padding: 0.3rem 0.7rem;
+    text-transform: capitalize;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.btn-login {
+    background-color: $gray;
+}
+
+.btn-login:hover {
+    box-shadow: $shadow-3;
+}
