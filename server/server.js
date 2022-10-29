@@ -8,6 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/api/users', require('./routes/user'));
+
 app.get('/', (req, res) => {
     res.json({ message: 'techNotes' });
 });
