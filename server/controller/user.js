@@ -110,8 +110,37 @@ const updateUser = async (req, res) => {
     }
 };
 
+// @desc Delete user
+// @route Delete /users
+// @access Private
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        console.log(id);
+
+        // Check if user exists
+        const user = await User.findById(id).exec();
+        console.log(user);
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const deletedUser = await user.deleteOne();
+
+        res.json({ message: `${deletedUser.username} successfully removed` });
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+
+};
+
+
 module.exports = {
     getAllUsers,
     createUser,
     updateUser,
+    deleteUser,
 };
