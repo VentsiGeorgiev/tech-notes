@@ -8,8 +8,17 @@ export const authApi = api.injectEndpoints({
                 method: 'POST',
                 body: { ...credentials }
             })
-        })
+        }),
+        refresh: builder.mutation({
+            query: () => ({
+                url: 'api/auth/refresh',
+                method: 'GET',
+            })
+        }),
     })
 });
 
-export const { useLoginMutation } = authApi;
+export const {
+    useLoginMutation,
+    useRefreshMutation
+} = authApi;

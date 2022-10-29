@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Login, Dashboard } from './component/pages';
+import { Home, Login, Dashboard, PersistLogin } from './component/pages';
 import { DashLayout } from './component/shared';
 
 function App() {
@@ -8,11 +8,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
 
-            <Route path="dashboard" element={<DashLayout />}>
+            <Route element={<PersistLogin />}>
+                <Route path="dashboard" element={<DashLayout />}>
 
-                <Route index element={<Dashboard />} />
+                    <Route index element={<Dashboard />} />
 
-            </Route>{/* End Dashboard */}
+                </Route>{/* End Dashboard */}
+            </Route>
 
         </Routes>
     );
