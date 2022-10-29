@@ -1,0 +1,20 @@
+@import '../../../styles/_variables.scss';
+
+.header {
+    background-color: $gray;
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__logo {
+        font-size: 1.4rem;
+    }
+
+    &__navigation {
+        display: flex;
+        gap: 1rem;
+    }
+}
