@@ -1,12 +1,39 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLoginMutation } from '../../../app/services/auth';
+import { setCredentials } from '../../../features/auth/authSlice';
 import { Header } from '../../shared';
-import styles from './Login.module.scss';
 
 function Login() {
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+    const [login, { isLoading }] = useLoginMutation();
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const { accessToken } = await login({ username, password }).unwrap();
+            console.log('accessToken');
+            console.log(accessToken);
+            dispatch(setCredentials({ accessToken }));
+
+        } catch (error) {
+            console.log('error');
+            console.log(error);
+        }
+
+    };
+
     return (
         <>
             <Header />
             <section className='container center'>
-                <form className='form'>
+                <form onSubmit={handleSubmit} className='form'>
                     <h2 className='form__title'>Login</h2>
                     <div className='form__input'>
                         <label
@@ -18,6 +45,8 @@ function Login() {
                             id='username'
                             type='text'
                             name='username'
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             className='form__input__field'
                         />
                     </div>
@@ -30,6 +59,8 @@ function Login() {
                             id='password'
                             type='password'
                             name='password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className='form__input__field'
                         />
                     </div>
