@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { useLoginMutation } from '../../../app/services/auth';
 import { setCredentials } from '../../../features/auth/authSlice';
 import { Header } from '../../shared';
@@ -10,6 +11,7 @@ function Login() {
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [login, { isLoading }] = useLoginMutation();
 
 
@@ -17,10 +19,12 @@ function Login() {
         e.preventDefault();
 
         try {
+
             const { accessToken } = await login({ username, password }).unwrap();
             console.log('accessToken');
             console.log(accessToken);
             dispatch(setCredentials({ accessToken }));
+            navigate('/dashboard');
 
         } catch (error) {
             console.log('error');
