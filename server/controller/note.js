@@ -4,7 +4,19 @@ const Note = require('../models/Note');
 // @route GET /notes
 // @access Private
 const getAllNotes = async (req, res) => {
+    try {
 
+        const notes = await Note.find();
+
+        if (!notes?.length) {
+            throw new Error('No notes found');
+        }
+
+        res.json(notes);
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 };
 
 // @desc Create new note
