@@ -58,7 +58,33 @@ const createNote = async (req, res) => {
 // @route PUT /notes
 // @access Private
 const updateNote = async (req, res) => {
+    try {
 
+        const { id, user, title, text, completed } = req.body;
+
+        // Confirm data
+        if (!id || !user || !title || !text || typeof completed !== 'boolean') {
+            throw new Error('All fields are required');
+        }
+
+        // check if note exists
+        const note = await Note.findById(id);
+        if (!note) {
+            throw new Error('Note not found');
+        }
+
+        note.user = user;
+        note.title = title;
+        note.text = text;
+        note.completed = completed;
+
+        const updatedNote = await note.save();
+
+        res.json({ message: `${updatedNote.title} successfully updated` });
+
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 };
 
 // @desc Delete note
