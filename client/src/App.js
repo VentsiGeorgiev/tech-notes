@@ -1,6 +1,12 @@
+import { Routes, Route } from 'react-router-dom';
+import { Home, Login } from './component/pages';
+
 function App() {
   return (
-    <h1>techNotes</h1>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 
