@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Login, Dashboard, PersistLogin } from './component/pages';
+import { Home, Login, Dashboard, PersistLogin, UsersList, NotesList } from './component/pages';
 import { DashLayout } from './component/shared';
+import RequireAuth from './utils/RequireAuth';
+import { ROLES } from './utils/roles';
 
 function App() {
     return (
@@ -8,12 +10,26 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
 
+            {/* Protected routes */}
             <Route element={<PersistLogin />}>
-                <Route path="dashboard" element={<DashLayout />}>
+                <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+                    <Route path="dashboard" element={<DashLayout />}>
 
-                    <Route index element={<Dashboard />} />
+                        <Route index element={<Dashboard />} />
 
-                </Route>{/* End Dashboard */}
+                        <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]} />}>
+                            <Route path="users">
+                                <Route index element={<UsersList />} />
+                            </Route>
+                        </Route>
+
+                        <Route path="notes">
+                            <Route index element={<NotesList />} />
+                        </Route>
+
+                    </Route>{/* End Dashboard */}
+                </Route>
+
             </Route>
 
         </Routes>

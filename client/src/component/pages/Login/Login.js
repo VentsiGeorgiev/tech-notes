@@ -3,12 +3,14 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useLoginMutation } from '../../../app/services/auth';
 import { setCredentials } from '../../../features/auth/authSlice';
+import usePersist from '../../../hooks/usePersist';
 import { Header } from '../../shared';
 
 function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [persist, setPersist] = usePersist();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -23,6 +25,9 @@ function Login() {
             const { accessToken } = await login({ username, password }).unwrap();
             console.log('accessToken');
             console.log(accessToken);
+
+            setUsername('');
+            setPassword('');
             dispatch(setCredentials({ accessToken }));
             navigate('/dashboard');
 
@@ -31,6 +36,10 @@ function Login() {
             console.log(error);
         }
 
+    };
+
+    const handleToggle = () => {
+        setPersist((state) => !state);
     };
 
     return (
@@ -67,6 +76,18 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             className='form__input__field'
                         />
+                    </div>
+                    <div className='form__input'>
+                        <input
+                            id='persist'
+                            type='checkbox'
+                            value={persist}
+                            onChange={handleToggle}
+                            className='form__input__persist'
+                        />
+                        <label
+                            htmlFor='persist'
+                        >Trust this device</label>
                     </div>
                     <button className='btn btn-login'>Submit</button>
                 </form>
