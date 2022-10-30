@@ -25,6 +25,7 @@ function Header() {
                         {username
                             ? <button
                                 onClick={handleClick}
+                                className='btn'
                             >
                                 Logout
                             </button>

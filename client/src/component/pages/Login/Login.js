@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router';
 import { useLoginMutation } from '../../../app/services/auth';
 import { setCredentials } from '../../../features/auth/authSlice';
 import usePersist from '../../../hooks/usePersist';
-import { Header } from '../../shared';
+import { Header, Spinner } from '../../shared';
 
 function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [formError, setFormError] = useState('');
     const [persist, setPersist] = usePersist();
 
     const dispatch = useDispatch();
@@ -20,6 +21,11 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (username.trim() === '' || password.trim() === '') {
+            setFormError('All fields are required');
+            return;
+        }
+
         try {
 
             const { accessToken } = await login({ username, password }).unwrap();
@@ -29,6 +35,7 @@ function Login() {
             setUsername('');
             setPassword('');
             dispatch(setCredentials({ accessToken }));
+            setFormError('');
             navigate('/dashboard');
 
         } catch (error) {
@@ -42,12 +49,17 @@ function Login() {
         setPersist((state) => !state);
     };
 
+    if (isLoading) {
+        return <Spinner />;
+    }
+
     return (
         <>
             <Header />
             <section className='container center'>
                 <form onSubmit={handleSubmit} className='form'>
                     <h2 className='form__title'>Login</h2>
+                    {formError && <p className='error'>{formError}</p>}
                     <div className='form__input'>
                         <label
                             htmlFor='username'

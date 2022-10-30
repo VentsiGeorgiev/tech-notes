@@ -17,7 +17,9 @@ const User = ({ userId }) => {
                 <td >{user.username}</td>
                 <td >{userRolesString}</td>
                 <td >
-                    <button onClick={handleEdit} >Edit</button>
+                    <button
+                        className='btn'
+                        onClick={handleEdit} >Edit</button>
                 </td>
             </tr>
         );

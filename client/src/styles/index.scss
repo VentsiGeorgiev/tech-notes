@@ -71,15 +71,12 @@ h1 {
     padding: 0.3rem 0.7rem;
     text-transform: capitalize;
     display: inline-block;
-    margin-bottom: 1rem;
+    background-color: transparent;
+    border: 1px solid $black;
 }
 
 .btn-login {
     background-color: $gray;
-}
-
-.btn-login:hover {
-    box-shadow: $shadow-3;
 }
 
 // # Table
@@ -105,4 +102,9 @@ table tr:nth-child(even) {
 th,
 td {
     padding: 10px;
+}
+
+.error {
+    text-align: center;
+    color: $red;
 }
