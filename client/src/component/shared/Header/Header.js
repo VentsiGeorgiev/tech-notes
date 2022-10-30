@@ -1,7 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSendLogoutMutation } from '../../../app/services/auth';
+import useAuth from '../../../hooks/useAuth';
 import styles from './Header.module.scss';
 
 function Header() {
+
+    const { username } = useAuth();
+    const [sendLogout, { isLoading }] = useSendLogoutMutation();
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        sendLogout();
+        navigate('/');
+    };
+
     return (
         <header className={styles.header}>
             <section className={`container ${styles.header__wrapper}`}>
@@ -10,9 +22,18 @@ function Header() {
                 </Link>
                 <menu>
                     <ul className={styles.header__navigation}>
-                        <li>
-                            <Link to='/login'>Login</Link>
-                        </li>
+                        {username
+                            ? <button
+                                onClick={handleClick}
+                            >
+                                Logout
+                            </button>
+                            :
+                            <li>
+                                <Link to='/login'>Login</Link>
+                            </li>
+                        }
+
                     </ul>
                 </menu>
             </section>

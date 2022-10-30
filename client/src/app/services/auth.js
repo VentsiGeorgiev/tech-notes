@@ -1,4 +1,5 @@
 import { api } from './api';
+import { setCredentials, logOut } from '../../features/auth/authSlice';
 
 export const authApi = api.injectEndpoints({
     endpoints: builder => ({
@@ -15,10 +16,29 @@ export const authApi = api.injectEndpoints({
                 method: 'GET',
             })
         }),
+        sendLogout: builder.mutation({
+            query: () => ({
+                url: 'api/auth/logout',
+                method: 'POST',
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    console.log(data);
+                    dispatch(logOut());
+                    setTimeout(() => {
+                        dispatch(api.util.resetApiState());
+                    }, 1000);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }),
     })
 });
 
 export const {
     useLoginMutation,
-    useRefreshMutation
+    useRefreshMutation,
+    useSendLogoutMutation,
 } = authApi;

@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router';
+import { Header } from '../../shared';
 
 const DashLayout = () => {
     return (
         <>
-            <p>Dashboard header</p>
+            <Header />
             <Outlet />
-            <p>Dashboard footer</p>
         </>
     );
 };
