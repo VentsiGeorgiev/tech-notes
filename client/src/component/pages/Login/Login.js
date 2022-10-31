@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { useLoginMutation } from '../../../app/services/auth';
 import { setCredentials } from '../../../features/auth/authSlice';
 import usePersist from '../../../hooks/usePersist';
-import { Header, Spinner } from '../../shared';
+import { Alert, Header, Spinner } from '../../shared';
 
 function Login() {
 
@@ -15,8 +15,12 @@ function Login() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [login, { isLoading }] = useLoginMutation();
+    const [login, { isLoading, isError, error }] = useLoginMutation();
 
+    console.log('isError');
+    console.log(isError);
+    console.log('error');
+    console.log(error?.data?.message);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,7 +60,9 @@ function Login() {
     return (
         <>
             <Header />
+            {isError && <Alert message={error?.data?.message} msgType='error' />}
             <section className='container center'>
+
                 <form onSubmit={handleSubmit} className='form'>
                     <h2 className='form__title'>Login</h2>
                     {formError && <p className='error'>{formError}</p>}
@@ -101,7 +107,7 @@ function Login() {
                             htmlFor='persist'
                         >Trust this device</label>
                     </div>
-                    <button className='btn btn-login'>Submit</button>
+                    <button className='btn btn-login'>Sign In</button>
                 </form>
             </section>
         </>

@@ -132,7 +132,7 @@ function EditUser() {
                 <div className='form__input--buttons'>
                     <button
                         onClick={onUpdate}
-                        className='btn btn-edit'
+                        className='btn'
                     >
                         Update
                     </button>

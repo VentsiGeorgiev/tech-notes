@@ -16,13 +16,13 @@ const login = async (req, res) => {
         const foundUser = await User.findOne({ username }).exec();
 
         if (!foundUser || !foundUser.active) {
-            throw new Error('Unauthorized');
+            throw new Error('Invalid username or password');
         }
 
         const match = await bcrypt.compare(password, foundUser.password);
 
         if (!match) {
-            throw new Error('Unauthorized');
+            throw new Error('Invalid username or password');
         }
 
         const accessToken = jwt.sign(
