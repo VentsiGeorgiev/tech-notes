@@ -30,11 +30,24 @@ export const notesApi = api.injectEndpoints({
                 }
             }
         }),
+        addNewNote: builder.mutation({
+            query: initialNoteData => ({
+                url: 'api/notes',
+                method: 'POST',
+                body: {
+                    ...initialNoteData
+                }
+            }),
+            invalidatesTags: [
+                { type: 'Note', id: 'LIST' }
+            ]
+        })
     }),
 });
 
 export const {
     useGetNotesQuery,
+    useAddNewNoteMutation,
 } = notesApi;
 
 // returns the query result object
