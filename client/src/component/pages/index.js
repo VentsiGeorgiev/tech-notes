@@ -6,6 +6,7 @@ import UsersList from './UsersList/UsersList';
 import NotesList from './NotesList/NotesList';
 import EditUser from './EditUser/EditUser';
 import AddUser from './AddUser/AddUser';
+import AddNote from './NotesList/AddNote';
 export {
     Home,
     Login,
@@ -15,4 +16,5 @@ export {
     NotesList,
     EditUser,
     AddUser,
+    AddNote,
 };

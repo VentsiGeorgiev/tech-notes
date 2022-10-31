@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useGetNotesQuery } from '../../../app/services/notes';
 import { Alert, Spinner } from '../../shared';
 import Note from './Note';
@@ -20,7 +21,7 @@ function NotesList() {
             : null;
 
         content = (
-            <>
+            <section>
                 {isError && <Alert message={error?.data?.message} />}
                 <table>
                     <thead>
@@ -37,7 +38,7 @@ function NotesList() {
                         {tableContent}
                     </tbody>
                 </table>
-            </>
+            </section>
         );
     }
 
