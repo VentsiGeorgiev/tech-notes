@@ -17,11 +17,6 @@ function Login() {
     const navigate = useNavigate();
     const [login, { isLoading, isError, error }] = useLoginMutation();
 
-    console.log('isError');
-    console.log(isError);
-    console.log('error');
-    console.log(error?.data?.message);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -30,22 +25,14 @@ function Login() {
             return;
         }
 
-        try {
+        const { accessToken } = await login({ username, password }).unwrap();
 
-            const { accessToken } = await login({ username, password }).unwrap();
-            console.log('accessToken');
-            console.log(accessToken);
+        setUsername('');
+        setPassword('');
+        dispatch(setCredentials({ accessToken }));
+        setFormError('');
+        navigate('/dashboard');
 
-            setUsername('');
-            setPassword('');
-            dispatch(setCredentials({ accessToken }));
-            setFormError('');
-            navigate('/dashboard');
-
-        } catch (error) {
-            console.log('error');
-            console.log(error);
-        }
 
     };
 
