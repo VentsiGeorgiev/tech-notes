@@ -1,0 +1,18 @@
+.dashboard {
+    &__message {
+        margin-bottom: 1rem;
+    }
+
+    &__notes,
+    &__users {
+        margin-bottom: 1rem;
+
+        &__title {
+            margin-bottom: 0.3rem;
+        }
+
+        ul li {
+            margin-bottom: 0.3rem;
+        }
+    }
+}
