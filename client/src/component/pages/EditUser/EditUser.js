@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUserById, useUpdateUserMutation } from '../../../app/services/users';
+import { selectUserById, useDeleteUserMutation, useUpdateUserMutation } from '../../../app/services/users';
 import { Spinner } from '../../shared';
 import { useEffect, useState } from 'react';
 import { ROLES } from '../../../utils/roles';
@@ -8,8 +8,10 @@ import { ROLES } from '../../../utils/roles';
 function EditUser() {
     const { id } = useParams();
 
-    const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();
     const user = useSelector(state => selectUserById(state, id));
+
+    const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();
+    const [deleteUser, { isSuccess: isDeleteSuccess }] = useDeleteUserMutation();
 
 
     const [username, setUsername] = useState(user?.username);
@@ -44,16 +46,19 @@ function EditUser() {
         await updateUser({ id: id, username, password, roles, active });
     };
 
+    const onDelete = async () => {
+        await deleteUser({ id: id });
+    };
+
     useEffect(() => {
-        console.log(isSuccess);
-        if (isSuccess) {
+        if (isSuccess || isDeleteSuccess) {
             setUsername('');
             setPassword('');
             setRoles([]);
             navigate('/dashboard/users');
         }
 
-    }, [isSuccess, navigate]);
+    }, [isSuccess, isDeleteSuccess, navigate]);
 
     if (isLoading) {
         return <Spinner />;
@@ -131,7 +136,12 @@ function EditUser() {
                     >
                         Update
                     </button>
-                    <button className='btn'>Delete</button>
+                    <button
+                        onClick={onDelete}
+                        className='btn'
+                    >
+                        Delete
+                    </button>
                 </div>
             </div>
         </form>

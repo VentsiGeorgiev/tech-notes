@@ -43,12 +43,23 @@ export const usersApi = api.injectEndpoints({
                 { type: 'User', id: arg.id }
             ]
         }),
+        deleteUser: builder.mutation({
+            query: ({ id }) => ({
+                url: 'api/users',
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'User', id: arg.id }
+            ]
+        }),
     }),
 });
 
 export const {
     useGetUsersQuery,
     useUpdateUserMutation,
+    useDeleteUserMutation
 } = usersApi;
 
 // returns the query result object
