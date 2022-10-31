@@ -2,12 +2,13 @@
 
 techNotes is the best place to find a new job or manage your jobs offers.
 
-### **Live Demo** [techNotes](https://jobster-vg.herokuapp.com/)
+### **Live Demo** [techNotes](https://technotes-vg.herokuapp.com/)
 
 #### **MERN Project**
 
 MERN is a fullstack implementation in MongoDB, Expressjs, React, Nodejs.
-The idea of using JavaScript/Node for fullstack web development.
+State management with Redux / Redux Toolkit
+Data fetching and caching with RTK Query
 
 #### **Clone or download**
 
