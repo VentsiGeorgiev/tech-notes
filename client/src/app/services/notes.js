@@ -49,4 +49,5 @@ const selectNotesData = createSelector(
 //getSelectors creates these selectors and we rename them with aliases using destructuring
 export const {
     selectAll: selectAllNotes,
+    selectById: selectNoteById
 } = notesAdapter.getSelectors(state => selectNotesData(state) ?? initialState);

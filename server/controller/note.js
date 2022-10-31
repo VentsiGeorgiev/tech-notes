@@ -6,7 +6,7 @@ const Note = require('../models/Note');
 const getAllNotes = async (req, res) => {
     try {
 
-        const notes = await Note.find();
+        const notes = await Note.find().populate('user', 'username');
 
         if (!notes?.length) {
             throw new Error('No notes found');

@@ -1,14 +1,48 @@
 import { useGetNotesQuery } from '../../../app/services/notes';
+import { Alert, Spinner } from '../../shared';
+import Note from './Note';
 
 function NotesList() {
 
-    const { data: notes } = useGetNotesQuery();
+    const { data: notes, isLoading, isSuccess, isError, error } = useGetNotesQuery();
 
-    console.log(notes);
 
-    return (
-        <div>NotesList</div>
-    );
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    let content;
+    if (isSuccess) {
+        const { ids } = notes;
+
+        const tableContent = ids?.length
+            ? ids.map(noteId => <Note key={noteId} noteId={noteId} />)
+            : null;
+
+        content = (
+            <>
+                {isError && <Alert message={error?.data?.message} />}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Title</th>
+                            <th>Owner</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tableContent}
+                    </tbody>
+                </table>
+            </>
+        );
+    }
+
+    return content;
+
 }
 
 export default NotesList;
