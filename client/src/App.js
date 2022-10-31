@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Login, Dashboard, PersistLogin, UsersList, NotesList } from './component/pages';
+import { Home, Login, Dashboard, PersistLogin, UsersList, NotesList, EditUser } from './component/pages';
 import { DashLayout } from './component/shared';
 import RequireAuth from './utils/RequireAuth';
 import { ROLES } from './utils/roles';
@@ -20,6 +20,7 @@ function App() {
                         <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]} />}>
                             <Route path="users">
                                 <Route index element={<UsersList />} />
+                                <Route path=":id" element={<EditUser />} />
                             </Route>
                         </Route>
 

@@ -4,6 +4,7 @@ import Dashboard from './Dashboard/Dashboard';
 import PersistLogin from './PersistLogin/PersistLogin';
 import UsersList from './UsersList/UsersList';
 import NotesList from './NotesList/NotesList';
+import EditUser from './EditUser/EditUser';
 export {
     Home,
     Login,
@@ -11,4 +12,5 @@ export {
     PersistLogin,
     UsersList,
     NotesList,
+    EditUser,
 };

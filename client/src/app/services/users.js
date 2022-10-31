@@ -31,11 +31,24 @@ export const usersApi = api.injectEndpoints({
                 }
             }
         }),
+        updateUser: builder.mutation({
+            query: initialUserData => ({
+                url: 'api/users',
+                method: 'PUT',
+                body: {
+                    ...initialUserData,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'User', id: arg.id }
+            ]
+        }),
     }),
 });
 
 export const {
     useGetUsersQuery,
+    useUpdateUserMutation,
 } = usersApi;
 
 // returns the query result object
@@ -51,6 +64,6 @@ const selectUsersData = createSelector(
 export const {
     selectAll: selectAllUsers,
     selectById: selectUserById,
-    selectIds: selectUserIds
+    selectIds: selectUserIds,
     // Pass in a selector that returns the users slice of state
 } = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState);

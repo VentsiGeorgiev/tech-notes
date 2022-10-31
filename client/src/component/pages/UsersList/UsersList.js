@@ -1,5 +1,6 @@
 import { useGetUsersQuery } from '../../../app/services/users';
 import User from './User';
+import { Spinner } from '../../shared';
 
 function UsersList() {
 
@@ -15,7 +16,7 @@ function UsersList() {
     let content;
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <Spinner />;
     }
 
     if (isSuccess) {

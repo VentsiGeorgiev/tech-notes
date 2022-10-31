@@ -5,7 +5,9 @@ const DashLayout = () => {
     return (
         <>
             <Header />
-            <Outlet />
+            <section className='container'>
+                <Outlet />
+            </section>
         </>
     );
 };
