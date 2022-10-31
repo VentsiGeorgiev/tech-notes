@@ -43,7 +43,6 @@ function AddUser() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('here');
         if (username.trim() === '' || password.trim() === '') {
             setFormError('All fields are required');
             return;

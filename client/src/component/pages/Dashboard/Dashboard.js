@@ -21,9 +21,9 @@ function Dashboard() {
                         </li>
                     </ul>
                 </div>
-                <div className={styles.dashboard__users}>
-                    <h3 className={styles.dashboard__users__title}>Users</h3>
-                    {(isManager || isAdmin) &&
+                {(isManager || isAdmin) &&
+                    <div className={styles.dashboard__users}>
+                        <h3 className={styles.dashboard__users__title}>Users</h3>
                         <ul>
                             <li>
                                 <Link className='btn' to="/dashboard/users/add">Add New User</Link>
@@ -32,8 +32,8 @@ function Dashboard() {
                                 <Link className='btn' to="/dashboard/users">View User Settings</Link>
                             </li>
                         </ul>
-                    }
-                </div>
+                    </div>
+                }
             </section>
 
         </main>

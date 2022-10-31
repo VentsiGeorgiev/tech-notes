@@ -84,11 +84,11 @@ const updateUser = async (req, res) => {
         }
 
         // Check for username
-        const usernameExists = await User.findOne({ username });
+        // const usernameExists = await User.findOne({ username });
 
-        if (usernameExists) {
-            throw new Error('User with this username already exists');
-        }
+        // if (usernameExists) {
+        //     throw new Error('User with this username already exists');
+        // }
 
         user.username = username;
         user.roles = roles;
