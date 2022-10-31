@@ -5,6 +5,7 @@ import PersistLogin from './PersistLogin/PersistLogin';
 import UsersList from './UsersList/UsersList';
 import NotesList from './NotesList/NotesList';
 import EditUser from './EditUser/EditUser';
+import AddUser from './AddUser/AddUser';
 export {
     Home,
     Login,
@@ -13,4 +14,5 @@ export {
     UsersList,
     NotesList,
     EditUser,
+    AddUser,
 };

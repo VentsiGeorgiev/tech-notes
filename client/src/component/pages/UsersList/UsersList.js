@@ -1,6 +1,8 @@
 import { useGetUsersQuery } from '../../../app/services/users';
 import User from './User';
 import { Spinner } from '../../shared';
+import { Link } from 'react-router-dom';
+import styles from './UsersList.module.scss';
 
 function UsersList() {
 
@@ -29,6 +31,15 @@ function UsersList() {
 
         content = (
             <section className='container'>
+                <div className={styles['add-user']}>
+                    <Link
+                        to='/dashboard/users/add'
+                        className='btn'
+                    >
+                        Add New User
+                    </Link>
+
+                </div>
                 <table>
                     <thead>
                         <tr>

@@ -78,10 +78,24 @@ h1 {
     display: inline-block;
     background-color: transparent;
     border: 1px solid $black;
+    font-weight: 600;
 }
 
 .btn-login {
     background-color: $gray;
+}
+
+.btn-edit {
+    color: $orange;
+    border: 1px solid $orange;
+}
+.btn-delete {
+    color: $red;
+    border: 1px solid $red;
+}
+.btn-success {
+    color: $green;
+    border: 1px solid $green;
 }
 
 // # Table
