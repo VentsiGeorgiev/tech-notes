@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Login, Dashboard, PersistLogin, UsersList, NotesList, EditUser, AddUser, AddNote } from './component/pages';
+import { Home, Login, Dashboard, PersistLogin, UsersList, NotesList, EditUser, AddUser, AddNote, EditNote } from './component/pages';
 import { DashLayout } from './component/shared';
 import RequireAuth from './utils/RequireAuth';
 import { ROLES } from './utils/roles';
@@ -27,6 +27,7 @@ function App() {
 
                         <Route path="notes">
                             <Route index element={<NotesList />} />
+                            <Route path=":id" element={<EditNote />} />
                             <Route path="add" element={<AddNote />} />
                         </Route>
 

@@ -7,6 +7,7 @@ import NotesList from './NotesList/NotesList';
 import EditUser from './EditUser/EditUser';
 import AddUser from './AddUser/AddUser';
 import AddNote from './NotesList/AddNote';
+import EditNote from './NotesList/EditNote';
 export {
     Home,
     Login,
@@ -17,4 +18,5 @@ export {
     EditUser,
     AddUser,
     AddNote,
+    EditNote,
 };

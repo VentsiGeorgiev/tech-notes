@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { selectNoteById } from '../../../app/services/notes';
 
 function Note({ noteId }) {
@@ -6,8 +7,6 @@ function Note({ noteId }) {
     const note = useSelector(state => selectNoteById(state, noteId));
 
     if (note) {
-        console.log('note --');
-        console.log(note);
 
         const created = new Date(note.createdAt).toLocaleString('en-US', { day: 'numeric', month: 'long' });
         const updated = new Date(note.updatedAt).toLocaleString('en-US', { day: 'numeric', month: 'long' });
@@ -26,7 +25,7 @@ function Note({ noteId }) {
                 <td>{note.user.username}</td>
 
                 <td >
-                    <button className='btn'>Edit</button>
+                    <Link className='btn' to={`/dashboard/notes/${noteId}`}>Edit</Link>
                 </td>
             </tr>
         );

@@ -41,13 +41,27 @@ export const notesApi = api.injectEndpoints({
             invalidatesTags: [
                 { type: 'Note', id: 'LIST' }
             ]
-        })
+        }),
+        updateNote: builder.mutation({
+            query: initialNoteData => ({
+                url: 'api/notes',
+                method: 'PUT',
+                body: {
+                    ...initialNoteData
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Note', id: arg.id }
+            ]
+        }),
+
     }),
 });
 
 export const {
     useGetNotesQuery,
     useAddNewNoteMutation,
+    useUpdateNoteMutation,
 } = notesApi;
 
 // returns the query result object
