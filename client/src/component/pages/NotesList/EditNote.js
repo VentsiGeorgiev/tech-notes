@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectNoteById, useUpdateNoteMutation } from '../../../app/services/notes';
-import { Alert } from "../../shared";
-import useAuth from "../../../hooks/useAuth";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectNoteById, useDeleteNoteMutation, useUpdateNoteMutation } from '../../../app/services/notes';
+import { Alert, Spinner } from '../../shared';
+import useAuth from '../../../hooks/useAuth';
 
 function EditNote() {
     const { id } = useParams();
@@ -11,6 +11,12 @@ function EditNote() {
     const note = useSelector(state => selectNoteById(state, id));
 
     const [updateNote, { isLoading, isSuccess, isError, error }] = useUpdateNoteMutation();
+    const [deleteNote, {
+        isSuccess: isDelSuccess,
+        isError: isDelError,
+        isLoading: isDelLoading,
+        error: delError
+    }] = useDeleteNoteMutation();
 
     const navigate = useNavigate();
 
@@ -29,23 +35,28 @@ function EditNote() {
     };
 
     useEffect(() => {
-        if (isSuccess) {
+        if (isSuccess || isDelSuccess) {
             setTitle('');
             setText('');
             navigate('/dashboard/notes');
         }
-    }, [isSuccess, navigate]);
+    }, [isSuccess, isDelSuccess, navigate]);
 
     const onUpdate = () => {
         updateNote({ id, user: userId, title, text, completed });
     };
     const onDelete = () => {
-
+        deleteNote({ id });
     };
+
+    if (isLoading || isDelLoading) {
+        return <Spinner />;
+    }
 
     return (
         <>
             {isError && <Alert message={error?.data?.message} />}
+            {isDelError && <Alert message={delError?.data?.message} />}
             <form onSubmit={handleSubmit} className='form'>
                 <h2 className='form__title'>Update Note</h2>
                 {formError && <p className='error'>{formError}</p>}

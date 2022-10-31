@@ -54,7 +54,16 @@ export const notesApi = api.injectEndpoints({
                 { type: 'Note', id: arg.id }
             ]
         }),
-
+        deleteNote: builder.mutation({
+            query: ({ id }) => ({
+                url: 'api/notes',
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Note', id: arg.id }
+            ]
+        }),
     }),
 });
 
@@ -62,6 +71,7 @@ export const {
     useGetNotesQuery,
     useAddNewNoteMutation,
     useUpdateNoteMutation,
+    useDeleteNoteMutation
 } = notesApi;
 
 // returns the query result object
