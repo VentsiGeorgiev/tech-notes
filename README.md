@@ -10,6 +10,15 @@ MERN is a fullstack implementation in MongoDB, Expressjs, React, Nodejs.
 State management with Redux / Redux Toolkit
 Data fetching and caching with RTK Query
 
+#### **Users**
+
+Admin Role:
+username: admin password: 123456
+Manager Role:
+username: peter password: 123456
+Employees Role:
+username: admin password: 123456
+
 #### **Clone or download**
 
 ```terminal
