@@ -1,6 +1,6 @@
 # techNotes
 
-techNotes is the best place to find a new job or manage your jobs offers.
+techNotes is the best system to replace your current sticky note system.
 
 ### **Live Demo** [techNotes](https://technotes-vg.herokuapp.com/)
 
